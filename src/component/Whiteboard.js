@@ -45,11 +45,9 @@ function Whiteboard() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Join room and request initial sync
     socket.emit(ACTIONS.JOIN, { roomId, username: "Anonymous" });
     socket.emit(ACTIONS.WHITEBOARD_REQUEST_SYNC, { roomId });
 
-    // --- SOCKET LISTENERS ---
     socket.on(ACTIONS.WHITEBOARD_BEGIN, ({ point }) => {
       drawPoint(point, true);
       addPointToStrokes(point, true);

@@ -80,7 +80,6 @@ function EditorPage() {
     socketRef.current.on("connect_error", handleErrors);
     socketRef.current.on("connect_failed", handleErrors);
 
-    // ✅ cleanup (don’t nullify here)
     return () => {
       if (socketRef.current) {
         socketRef.current.off(ACTIONS.JOINED, handleJoin);
@@ -88,7 +87,7 @@ function EditorPage() {
         socketRef.current.off("connect_error", handleErrors);
         socketRef.current.off("connect_failed", handleErrors);
 
-        socketRef.current.disconnect(); // properly close socket
+        socketRef.current.disconnect(); 
       }
     };
   }, [location.state, navigate, roomId]);
@@ -109,7 +108,6 @@ function EditorPage() {
   const leaveRoom = () => {
     if (socketRef.current) {
       socketRef.current.disconnect();
-      // ❌ don’t set socketRef.current = null (caused your error)
     }
     navigate("/");
   };

@@ -1,4 +1,3 @@
-// src/pages/AuthPage.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -18,7 +17,6 @@ function AuthPage() {
 
   const navigate = useNavigate();
 
-  // ✅ Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -30,7 +28,6 @@ function AuthPage() {
 
       const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-      // Refresh user to check verification status
       await user.reload();
 
       if (!user.emailVerified) {
@@ -41,12 +38,12 @@ function AuthPage() {
         } catch (err) {
           console.error("Error sending verification email:", err);
         }
-        await signOut(auth); // logout if not verified
+        await signOut(auth); 
         return;
       }
 
       toast.success("Login successful!");
-      navigate("/"); // ✅ redirect to home page immediately
+      navigate("/"); 
 
     } catch (err) {
       console.error("Login failed:", err);
@@ -62,7 +59,6 @@ function AuthPage() {
     }
   };
 
-  // ✅ Handle Forgot Password
   const handleForgotPassword = async () => {
     if (!email) {
       toast.error("Enter your email to reset password");
@@ -74,7 +70,7 @@ function AuthPage() {
       await sendPasswordResetEmail(auth, email);
 
       toast.success("If this email is registered, a reset link has been sent.");
-      setEmail(""); // clear input
+      setEmail("");
     } catch (err) {
       console.error("Password reset error:", err);
       if (err.code === "auth/too-many-requests") {

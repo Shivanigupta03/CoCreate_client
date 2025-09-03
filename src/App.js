@@ -16,7 +16,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         try {
-          await currentUser.reload(); // ✅ always get latest verification status
+          await currentUser.reload(); 
         } catch (err) {
           console.error("Reload failed:", err);
         }
@@ -71,7 +71,7 @@ function App() {
       />
 
       <Routes>
-        {/* Auth routes (only if NOT verified) */}
+
         <Route
           path="/auth"
           element={!isVerified ? <AuthPage /> : <Navigate to="/home" replace />}
@@ -81,7 +81,6 @@ function App() {
           element={!isVerified ? <SignPage /> : <Navigate to="/home" replace />}
         />
 
-        {/* Protected routes (only if verified) */}
         <Route
           path="/home"
           element={isVerified ? <Home /> : <Navigate to="/auth" replace />}
@@ -91,7 +90,6 @@ function App() {
           element={isVerified ? <EditorPage /> : <Navigate to="/auth" replace />}
         />
 
-        {/* Force default page */}
         <Route
           path="/"
           element={
@@ -103,7 +101,6 @@ function App() {
           }
         />
 
-        {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

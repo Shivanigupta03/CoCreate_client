@@ -1,8 +1,7 @@
-// src/pages/SignPage.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { auth } from "../firebase"; // adjust path if needed
+import { auth } from "../firebase"; 
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -36,10 +35,8 @@ function SignPage() {
 
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
-      // Set display name
       await updateProfile(user, { displayName: name });
 
-      // Send verification email immediately
       await sendEmailVerification(user);
 
       toast.success("Account created! Please verify your email before logging in.");

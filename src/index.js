@@ -13,5 +13,4 @@ root.render(
   </Router>
 );
 
-// Optional: measure performance
 reportWebVitals();

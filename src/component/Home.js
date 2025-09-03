@@ -14,16 +14,14 @@ function Home() {
 
   const navigate = useNavigate();
 
-  // 🔹 Listen to auth state changes
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
-      setAuthChecked(true); // auth state check complete
+      setAuthChecked(true); 
     });
     return () => unsubscribe();
   }, []);
 
-  // 🔹 Generate a new room ID
   const generateRoomId = (e) => {
     e.preventDefault();
     const Id = uuid();
@@ -31,7 +29,6 @@ function Home() {
     toast.success("Room ID generated");
   };
 
-  // 🔹 Join room
   const joinRoom = async () => {
     if (!roomId || !username) {
       toast.error("Both fields are required");
@@ -67,7 +64,6 @@ function Home() {
     if (e.code === "Enter") joinRoom();
   };
 
-  // 🔹 Mark user inactive on leave
   useEffect(() => {
     const handleBeforeUnload = async () => {
       if (user) {
@@ -86,10 +82,8 @@ function Home() {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [user]);
 
-  // 🔹 Wait until auth check is complete
   if (!authChecked) return <div>Loading...</div>;
 
-  // 🔹 Redirect if not logged in or email not verified
   if (!user || !user.emailVerified) return <Navigate to="/auth" replace />;
 
   return (
